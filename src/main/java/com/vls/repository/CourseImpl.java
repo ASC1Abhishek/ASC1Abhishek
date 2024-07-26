@@ -9,6 +9,12 @@ import java.util.List;
 
 public class CourseImpl implements Course{
 
+    private Connection connection;
+    public CourseImpl() {}
+    public CourseImpl(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public List<CourseModel> getAllCourses() {
         List<CourseModel> courses = new ArrayList<>();
@@ -80,11 +86,12 @@ public class CourseImpl implements Course{
     @Override
     public void addCourse(CourseModel course) {
         try (Connection connection = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Course (CourseName, AuthorName, Duration, Availability) VALUES (?, ?, ?, ?)")) {
-            preparedStatement.setString(1, course.getCourseName());
-            preparedStatement.setString(2, course.getAuthorName());
-            preparedStatement.setInt(3, course.getDuration());
-            preparedStatement.setBoolean(4, course.isAvailability());
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Course (CourseId, CourseName, AuthorName, Duration, Availability) VALUES (?, ?, ?, ?, ?)")) {
+            preparedStatement.setInt(1,course.getCourseId());
+            preparedStatement.setString(2, course.getCourseName());
+            preparedStatement.setString(3, course.getAuthorName());
+            preparedStatement.setInt(4, course.getDuration());
+            preparedStatement.setBoolean(5, course.isAvailability());
             preparedStatement.executeUpdate();
         } catch (SQLException sqlException) {
             System.out.println("SQLException: " + sqlException.getMessage());
