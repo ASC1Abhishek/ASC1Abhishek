@@ -22,21 +22,16 @@ public class TestCourseServices {
 
     @Before
     public void setUp() throws Exception {
-        // Initialize the database connection
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/vlsdb", "root", "mysql");
 
-        // Initialize the course repository with the connection
         Course course = new CourseImpl(connection);
 
-        // Initialize the course service with the repository
         courseService = new CourseServiceImpl(course);
 
-        // Set up the database schema
         try (Statement statement = connection.createStatement()) {
             statement.execute("CREATE TABLE IF NOT EXISTS Course (CourseId INT PRIMARY KEY, CourseName VARCHAR(100), AuthorName VARCHAR(100), Duration INT, Availability BOOLEAN)");
             statement.execute("DELETE FROM Course");
 
-            // Add courses for testing
             statement.execute("INSERT INTO Course (CourseId, CourseName, AuthorName, Duration, Availability) VALUES (1, 'java', 'subbu', 6, true)");
             statement.execute("INSERT INTO Course (CourseId, CourseName, AuthorName, Duration, Availability) VALUES (2, 'c', 'sanjay', 6, true)");
             statement.execute("INSERT INTO Course (CourseId, CourseName, AuthorName, Duration, Availability) VALUES (3, 'python', 'dakshan', 6, true)");

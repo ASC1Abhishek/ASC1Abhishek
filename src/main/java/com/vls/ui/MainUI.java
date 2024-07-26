@@ -16,9 +16,9 @@ import java.util.Scanner;
 
 public class MainUI {
 
-    private CourseService courseService;
-    private LoginService loginService;
-    private Scanner scanner;
+    private final CourseService courseService;
+    private final LoginService loginService;
+    private final Scanner scanner;
     private boolean loggedIn = false;
 
     public MainUI(CourseService courseService, LoginService loginService) {

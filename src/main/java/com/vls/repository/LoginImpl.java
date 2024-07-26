@@ -18,14 +18,14 @@ public class LoginImpl implements Login {
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                return new LoginModel(rs.getString("username"),
-                        rs.getString("password"));
+                return new LoginModel(rs.getString("username"), rs.getString("password"));
             } else {
                 System.out.println("User not found for username: " + username);
             }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Print the stack trace for more details
-            throw new DatabaseException("Error finding user", e);
+        } catch (SQLException sqlException) {
+            System.out.println("SQLException: " + sqlException.getMessage());
+
+            throw new DatabaseException("Error finding user", sqlException);
         }
         return null;
     }
@@ -38,9 +38,9 @@ public class LoginImpl implements Login {
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(); // Print the stack trace for more details
-            throw new DatabaseException("Error adding user", e);
+        } catch (SQLException sqlException) {
+            System.out.println("SQLException: " + sqlException.getMessage());
+            throw new DatabaseException("Error adding user", sqlException);
         }
     }
 }

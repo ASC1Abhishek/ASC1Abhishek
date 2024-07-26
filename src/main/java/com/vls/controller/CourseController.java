@@ -7,7 +7,7 @@ import com.vls.service.CourseServiceImpl;
 import java.util.List;
 
 public class CourseController {
-    private CourseService courseService = new CourseServiceImpl();
+    private final CourseService courseService = new CourseServiceImpl();
 
     public List<CourseModel> getAllCourses() {
         return courseService.getAllCourses();
